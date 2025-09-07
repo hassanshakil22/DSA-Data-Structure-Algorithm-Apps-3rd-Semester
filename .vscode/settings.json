@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.c++": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "new": "cpp",
+        "iostream": "cpp"
+    }
+}
