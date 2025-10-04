@@ -3,22 +3,20 @@
 
 using namespace std;
 
+class Node
+{
+public:
+    int data;
+    Node *next;
 
+    Node(int value)
+    {
+        data = value;
+        next = nullptr;
+    }
+};
 
-// class Node
-// {
-// public:
-//     int data;
-//     Node *next;
-
-//     Node(int value)
-//     {
-//         data = value;
-//         next = nullptr;
-//     }
-// };
-
-// --------------------------------------- Q1 --------------------------------------- 
+// --------------------------------------- Q1 ---------------------------------------
 
 // class Queue
 // {
@@ -98,8 +96,7 @@ using namespace std;
 //     }
 // };
 
-// --------------------------------------- Q2 --------------------------------------- 
-
+// --------------------------------------- Q2 ---------------------------------------
 
 // class Dequeue
 // {
@@ -220,7 +217,7 @@ using namespace std;
 //     }
 // };
 
-// --------------------------------------- Q3 --------------------------------------- 
+// --------------------------------------- Q3 ---------------------------------------
 
 class Node
 {
@@ -315,23 +312,24 @@ Node *mergeTwoList(Node *list1_head, Node *list2_head)
     return head;
 }
 
-// --------------------------------------- Q4 --------------------------------------- 
+// --------------------------------------- Q4 ---------------------------------------
 
-Node* reverseList(Node* head){
-    Node* temp = nullptr;
-    Node* curr = head;
+Node *reverseList(Node *head)
+{
+    Node *temp = nullptr;
+    Node *curr = head;
     while (curr)
-    {   
+    {
         temp = curr->prev;
-        curr->prev = curr->next; 
+        curr->prev = curr->next;
         curr->next = temp;
         curr = curr->prev;
     }
-    if(temp)
-    head = temp->prev;
+    if (temp)
+        head = temp->prev;
     return head;
 }
-// --------------------------------------- Q5 --------------------------------------- 
+// --------------------------------------- Q5 ---------------------------------------
 
 class BrowserHistory
 {
@@ -376,20 +374,20 @@ public:
         return browsingHistory[currentPage];
     }
 
-    void printHistory(){
-        cout << "browsing history : [" ;
+    void printHistory()
+    {
+        cout << "browsing history : [";
         for (string i : browsingHistory)
         {
-            cout << i << "," ;
+            cout << i << ",";
         }
         cout << " ]" << endl;
-        
     }
 };
 
-
 int main()
 {
+    // --- ans 1 
     // Queue q;
     // q.enqueue(10);
     // q.enqueue(20);
@@ -399,7 +397,7 @@ int main()
     // q.dequeue();
     // cout << "Front after dequeue: " << q.peek() << endl; // 20
 
-    // ------------------
+    // ------------------ a2
 
     // Dequeue q1;
     // q1.InsertFront(5);
@@ -414,7 +412,7 @@ int main()
     // q1.DeleteFront();
     // q1.DeleteRear();
     // q1.display();
-
+    // --- ans 3
     DoublyLinkedList L;
     L.insert(2);
     L.insert(4);
@@ -431,17 +429,17 @@ int main()
     displayForward(M.head);
     Node *merged = mergeTwoList(M.head, L.head);
     displayForward(merged);
-    // a4
-    // Node *desc =  reverseList(merged) ;
-    // displayForward(desc);
+    // --- ans 4
+    Node *desc = reverseList(merged);
+    displayForward(desc);
 
-    // ---
+    // --- ans 5
 
     BrowserHistory bh("google.com");
     bh.visit("googlepoogle");
     bh.visit("fb.com");
     bh.visit("insta.com");
-     bh.printHistory();
-     cout<<  bh.forward(1);
-     cout<<  bh.back(2);
+    bh.printHistory();
+    cout << bh.forward(1);
+    cout << bh.back(2);
 }
