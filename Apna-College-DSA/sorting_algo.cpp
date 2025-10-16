@@ -3,27 +3,23 @@
 #include <iostream>
 using namespace std;
 
+
 void insertionSort(int arr[], int n)
 {
-       // 1 4 5 6 2 10 861 82 
     for (int i = 1; i < n; i++)
     {
         int current = arr[i];
-        for (int j = i - 1; j >= 0; j--)
+        int lastSorted = i - 1;
+
+        while (lastSorted >= 0 && arr[lastSorted] > current)
         {
-            if (arr[j] > current)
-            {
-                arr[j + 1] = arr[j];
-            } 
-            else
-            {
-                arr[j + 1] = current;
-                break;
-            }
+            arr[lastSorted + 1] = arr[lastSorted];
+            lastSorted--;
         }
+
+        arr[lastSorted + 1] = current;
     }
 }
-
 void selectionSort(int arr[], int n)
 {
     // 1 2 4 5 6 10 861 82

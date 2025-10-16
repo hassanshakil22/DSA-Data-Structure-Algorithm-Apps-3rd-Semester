@@ -11,19 +11,19 @@ int main()
     cout << "Enter the cols" << endl;
     cin >> cols;
 
-
     int **arr2d = new int *[rows];
-    for (int  i = 0; i < rows; i++)
+    for (int i = 0; i < rows; i++)
     {
-        // int* arr[i] = new int[cols];
+        arr2d[i] = new int[cols];
     }
-    
 
-        int arr2d[3][3] = {
-            {2, 3, 5},
-            {4, 7, 9},
-            {0, 1, 8},
-        };
+    
+    
+    int arr2d[3][3] = {
+        {2, 3, 5},
+        {4, 7, 9},
+        {0, 1, 8},
+    };
     // int arrflat[9];
     int *arrflat = new int[sizeof(arr2d) / sizeof(arr2d[0][0])];
 
