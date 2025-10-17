@@ -66,6 +66,9 @@ void printArr(int arr[], int n)
     cout << endl;
 }
 
+
+
+
 int main()
 {
     int arr[] = {1, 4, 5, 6, 2, 10, 861, 82};
