@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-
 void insertionSort(int arr[], int n)
 {
     for (int i = 1; i < n; i++)
@@ -57,6 +56,75 @@ void bubbleSort(int arr[], int n)
     }
 }
 
+int partition(int arr[], int st, int end)
+{
+    int pivot = arr[end];
+    int idx = st - 1;
+
+    for (int j = st; j < end; j++)
+    {
+        if (arr[j] <= pivot) // if element less than = to pivot then we replace arr[j] to ith pos element as that keeps track of left side elemetns
+        {
+            swap(arr[++idx], arr[j]);
+        }
+    }
+    swap(arr[++idx], arr[end]);
+    return idx;
+}
+
+void quickSort(int arr[], int st, int end)
+{
+    if (st < end)
+    {
+        int pivotIdx = partition(arr, st, end);
+        quickSort(arr, st, pivotIdx - 1);  // left half
+        quickSort(arr, pivotIdx + 1, end); // left half
+    }
+}
+
+void  merge(int arr[], int st, int mid, int end)
+{
+    int i = st, j = mid + 1;
+    int tempIdx = 0;
+    int arrSize = (end - st + 1);// if st=3 and end = 7 so array size is 7-3 =4+1 => 5
+    int temp[arrSize]; 
+    while (i <= mid && j <= end)
+    {
+
+        if (arr[i] < arr[j])
+        {
+            temp[tempIdx++] = arr[i++];
+        }
+        else
+        {
+            temp[tempIdx++] = arr[j++];
+        }
+    }
+    while (i <= mid)
+        temp[tempIdx++] = arr[i++];
+    while (j <= end)
+        temp[tempIdx++] = arr[j++];
+
+    for (int i = 0; i < arrSize ; i++)
+    {
+        arr[i+st] = temp[i] ;
+    }
+     
+
+}
+
+void mergeSort(int arr[], int st, int end)
+{
+if (st < end){ 
+    
+    int mid = st + (end - st) / 2;
+
+    mergeSort(arr, st, mid);      // left
+    mergeSort(arr, mid + 1, end); // right
+
+    merge(arr,st,mid,end);}
+}
+
 void printArr(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -66,9 +134,6 @@ void printArr(int arr[], int n)
     cout << endl;
 }
 
-
-
-
 int main()
 {
     int arr[] = {1, 4, 5, 6, 2, 10, 861, 82};
@@ -76,7 +141,10 @@ int main()
 
     // bubbleSort(arr, 8);
     // selectionSort(arr, 8);
-    insertionSort(arr, 8);
+    // insertionSort(arr, 8);
+    // quickSort(arr, 0, 7);
+    mergeSort(arr, 0, 7);
+
     printArr(arr, 8);
 
     return 0;
