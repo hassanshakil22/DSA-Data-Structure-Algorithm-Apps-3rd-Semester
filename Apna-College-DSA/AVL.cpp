@@ -173,8 +173,8 @@ public:
 
         int mid = start + (end - start) / 2;
         Node *node = new Node(arr[mid]);
-        Node *left = buildFromSortedArray(arr, start, mid - 1);
-        Node *right = buildFromSortedArray(arr, mid + 1, end);
+        node->left = buildFromSortedArray(arr, start, mid - 1);
+        node->right = buildFromSortedArray(arr, mid + 1, end);
 
         updateHeight(node);
         return node;

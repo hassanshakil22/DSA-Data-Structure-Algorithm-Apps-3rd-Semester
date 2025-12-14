@@ -60,9 +60,9 @@ bool isPalindrome(Node *head)
     // head = head->next
 
 
-    //     S  
+    //         S  
     //   1,2,3,4,3,2,1 
-    //       F
+    //               F
     // 
     Node *slow = head;
     Node *fast = head;

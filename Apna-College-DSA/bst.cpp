@@ -53,17 +53,17 @@ public:
     }
 
     // Recursive function to insert a node
-    TreeNode *insertRec(TreeNode *node, int key)
+    TreeNode *insertRec(TreeNode *root, int key)
     {
-        // Base case: if the tree is empty, create a new node
-        if (node == NULL)
+        // Base case: if the tree is empty, create a new root
+        if (root == NULL)
             return new TreeNode(key);
         // Otherwise, recur down the tree
-        else if (key < node->val)
-            node->left = insertRec(node->left, key);
-        else if (key > node->val)
-            node->right = insertRec(node->right, key);
-        return node;
+        else if (key < root->val)
+            root->left = insertRec(root->left, key);
+        else if (key > root->val)
+            root->right = insertRec(root->right, key);
+        return root;
     }
     // Recursive function to delete a node
     TreeNode *deleteRec(TreeNode *node, int key)
@@ -145,23 +145,6 @@ public:
                 st.push(curr->left);
         }
     }
-    void levelOrderTraversal(TreeNode *root)
-    {
-        queue<TreeNode *> q;
-        q.push(root);
-
-        while (q.size() > 0)
-        {
-            TreeNode *curr = q.front();
-            q.pop();
-            cout << curr->val << " ";
-            if (curr->left)
-                q.push(curr->left);
-            if (curr->right)
-                q.push(curr->right);
-        }
-        cout << endl;
-    }
 
     void postorderTraversalStack(TreeNode *root)
     {
@@ -188,6 +171,23 @@ public:
             cout << st2.top()->val << " ";
             st2.pop();
         }
+    }
+    void levelOrderTraversal(TreeNode *root)
+    {
+        queue<TreeNode *> q;
+        q.push(root);
+
+        while (q.size() > 0)
+        {
+            TreeNode *curr = q.front();
+            q.pop();
+            cout << curr->val << " ";
+            if (curr->left)
+                q.push(curr->left);
+            if (curr->right)
+                q.push(curr->right);
+        }
+        cout << endl;
     }
 
 public:

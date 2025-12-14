@@ -51,7 +51,7 @@ string infixToPostfix(string exp)
         {
             while (!st.empty() && st.top() != '(')
             {
-                res += st.top();
+                res += st.top();    
                 st.pop();
             }
             if (!st.empty())
@@ -111,6 +111,7 @@ int postfixEvaluation(string exp)
     }
     return st.top();
 }
+
 
 int main()
 {

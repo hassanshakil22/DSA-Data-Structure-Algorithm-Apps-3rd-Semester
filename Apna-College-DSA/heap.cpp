@@ -7,7 +7,7 @@ class MaxHeap
 private:
     vector<int> heap;
 
-    // Helper functions to get parent and children indices
+            // Helper functions to get parent and children indices
     int parent(int i) { return (i - 1) / 2; }
     int leftChild(int i) { return 2 * i + 1; }
     int rightChild(int i) { return 2 * i + 2; }
@@ -34,7 +34,7 @@ private:
 
             if (heap[left] > heap[largest]) // first we check left child of the newly added root
                 largest = left;
-            // do right < size as right can be inexistent also
+            // check right < size as right can be inexistent also
             if (right < size && heap[right] > heap[largest]) // we check the right child of newly added root
                 largest = right;
 
@@ -89,12 +89,23 @@ public:
         return heap.empty();
     }
 
+    void buildHeap(vector<int>& inputArr) {
+        heap = inputArr; // Copy data into our internal vector
+        int n = heap.size();
+
+        // Start from the last non-leaf node and move up to root
+        // Last non-leaf node index is always (n/2) - 1
+        for (int i = (n / 2) - 1; i >= 0; i--) {
+            heapifyDown(i);
+        }
+    }
+
     void heapSort(vector<int> &arr)
     {
         heap.clear(); // CLEAR PREVIOUS STATE
-
-        for (auto &&i : arr)
-            insert(i);
+        buildHeap(arr);
+        // for (auto &&i : arr)
+        //     insert(i);
 
         for (int i = arr.size() - 1; i >= 0; i--)
         {
@@ -127,20 +138,20 @@ private:
         int size = heap.size();
         while (leftChild(index) < size) // while there is a left child
         {
-            int largest = index;
+            int smallest = index;
             int left = leftChild(index);
             int right = rightChild(index);
 
-            if (heap[left] > heap[largest])
-                largest = left;
+            if (heap[left] < heap[smallest])
+                smallest = left;
 
-            if (right < size && heap[right] > heap[largest])
-                largest = right;
+            if (right < size && heap[right] < heap[smallest])
+                smallest = right;
 
-            if (largest != index)
+            if (smallest != index)
             {
-                swap(heap[index], heap[largest]);
-                index = largest;
+                swap(heap[index], heap[smallest]);
+                index = smallest;
             }
             else
             {
@@ -158,20 +169,21 @@ public:
     }
 
     // Remove the maximum element (the root)
-    void extractMax()
+    int extractMin()
     {
         if (heap.empty())
         {
             throw out_of_range("Heap is empty");
         }
-        int maxValue = heap[0];
+        int minValue = heap[0];
         heap[0] = heap.back(); // Move last element to root
         heap.pop_back();       // Remove the last element
-        heapifyDown(0);        //  Restore heap property
+        heapifyDown(0);
+        return minValue; //  Restore heap property
     }
 
     // Get the maximum element without removing it
-    int getMax() const
+    int getMin() const
     {
         if (heap.empty())
         {

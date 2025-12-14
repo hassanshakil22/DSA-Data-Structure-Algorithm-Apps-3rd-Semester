@@ -1,8 +1,31 @@
+// Quick
+
+// | Case        | Time Complexity                                 | Reason                             |
+// | ----------- | ----------------------------------------------- | ---------------------------------- |
+// | **Best**    | **O(n log n)**                                  | Balanced partitions.               |
+// | **Average** | **O(n log n)**                                  | Random pivot works well.           |
+// | **Worst**   | **O(n²)**                                       | Already sorted + bad pivot choice. |
+// | **Space**   | O(log n) (best) / O(n) (worst) due to recursion |                                    |
+// | **Stable**  | ❌                                               |                                    |
+
+// MERGE
+
+// | Case        | Time Complexity |
+// | ----------- | --------------- |
+// | **Best**    | **O(n log n)**  |
+// | **Average** | **O(n log n)**  |
+// | **Worst**   | **O(n log n)**  |
+// | **Space**   | O(n)            |
+// | **Stable**  | ✔               |
+
+
+
 
 
 #include <iostream>
 using namespace std;
 
+// 4,1,5,0,7,9
 void insertionSort(int arr[], int n)
 {
     for (int i = 1; i < n; i++)
@@ -22,7 +45,7 @@ void insertionSort(int arr[], int n)
 void selectionSort(int arr[], int n)
 {
     // 1 2 4 5 6 10 861 82
-    int sortedIndex = -1;
+    int sortedIndex = 0;
     for (int i = 0; i < n - 1; i++)
     {
         int smallestIdx = i;
@@ -33,7 +56,7 @@ void selectionSort(int arr[], int n)
                 smallestIdx = j;
             }
         }
-        swap(arr[smallestIdx], arr[sortedIndex + 1]);
+        swap(arr[smallestIdx], arr[sortedIndex]);
         sortedIndex++;
     }
 }
@@ -45,12 +68,9 @@ void bubbleSort(int arr[], int n)
     {
         for (int j = 0; j < n - 1 - i; j++)
         {
-            int temp;
             if (arr[j] > arr[j + 1])
             {
-                temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+                swap(arr[j], arr[j + 1]);
             }
         }
     }
@@ -63,7 +83,7 @@ int partition(int arr[], int st, int end)
 
     for (int j = st; j < end; j++)
     {
-        if (arr[j] <= pivot) // if element less than = to pivot then we replace arr[j] to ith pos element as that keeps track of left side elemetns
+        if (arr[j] <= pivot) // if element less than = to pivot then we replace arr[j] to idxth pos element as that keeps track of left side elemetns
         {
             swap(arr[++idx], arr[j]);
         }
@@ -78,19 +98,18 @@ void quickSort(int arr[], int st, int end)
     {
         int pivotIdx = partition(arr, st, end);
         quickSort(arr, st, pivotIdx - 1);  // left half
-        quickSort(arr, pivotIdx + 1, end); // left half
+        quickSort(arr, pivotIdx + 1, end); // right half
     }
 }
 
-void  merge(int arr[], int st, int mid, int end)
+void merge(int arr[], int st, int mid, int end)
 {
     int i = st, j = mid + 1;
     int tempIdx = 0;
-    int arrSize = (end - st + 1);// if st=3 and end = 7 so array size is 7-3 =4+1 => 5
-    int temp[arrSize]; 
+    int arrSize = (end - st + 1); // if st=3 and end = 7 so array size is 7-3 =4+1 => 5
+    int temp[arrSize];
     while (i <= mid && j <= end)
     {
-
         if (arr[i] < arr[j])
         {
             temp[tempIdx++] = arr[i++];
@@ -105,24 +124,24 @@ void  merge(int arr[], int st, int mid, int end)
     while (j <= end)
         temp[tempIdx++] = arr[j++];
 
-    for (int i = 0; i < arrSize ; i++)
+    for (int i = 0; i < arrSize; i++)
     {
-        arr[i+st] = temp[i] ;
+        arr[i + st] = temp[i];
     }
-     
-
 }
 
 void mergeSort(int arr[], int st, int end)
 {
-if (st < end){ 
-    
-    int mid = st + (end - st) / 2;
+    if (st < end)
+    {
 
-    mergeSort(arr, st, mid);      // left
-    mergeSort(arr, mid + 1, end); // right
+        int mid = st + (end - st) / 2;
 
-    merge(arr,st,mid,end);}
+        mergeSort(arr, st, mid);      // left
+        mergeSort(arr, mid + 1, end); // right
+
+        merge(arr, st, mid, end);
+    }
 }
 
 void printArr(int arr[], int n)
